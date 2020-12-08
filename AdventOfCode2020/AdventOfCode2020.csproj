@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdventOfCode.Domain\AdventOfCode.Domain.csproj" />
+    <ProjectReference Include="..\AdventOfCode.Utility\AdventOfCode.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -5,15 +5,13 @@ using System.Linq;
 
 namespace AdventOfCode.Domain
 {
-    public class PasswordValidator : IPuzzle
+    public class RangePasswordValidator : IPuzzle
     {
         private IEnumerable<string> _input;
-        private Func<int, int, char, string, bool> _isPasswordValid;
 
-        public PasswordValidator(string fileName, Func<int, int, char, string, bool> isPasswordValid)
+        public RangePasswordValidator(string fileName)
         {
             _input = InputHelper.ReadAllLines(fileName);
-            _isPasswordValid = isPasswordValid;
         }
 
         public int Solve()
@@ -26,11 +24,8 @@ namespace AdventOfCode.Domain
                 var search = parts[1].Replace(":", "");
                 var password = parts[2];
 
-                if (_isPasswordValid(int.Parse(range[0]), int.Parse(range[1]), char.Parse(search), password))
+                if (IsPasswordValid(int.Parse(range[0]), int.Parse(range[1]), char.Parse(search), password))
                     valid++;
-
-                //if (IsPasswordValid(int.Parse(range[0]), int.Parse(range[1]), char.Parse(search), password))
-                //    valid++;
             }
             return valid;
         }
@@ -41,5 +36,4 @@ namespace AdventOfCode.Domain
             return occurences >= min && occurences <= max;
         }
     }
-
 }

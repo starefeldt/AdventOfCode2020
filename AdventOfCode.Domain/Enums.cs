@@ -4,6 +4,7 @@
     {
         One_1,
         One_2,
-        Two_1
+        Two_1,
+        Two_2
     }
 }

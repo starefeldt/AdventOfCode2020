@@ -10,7 +10,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Two_2;
+            var day = Day.Two_1;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -22,8 +22,18 @@ namespace AdventOfCode2020
             {
                 Day.One_1 => new FindTwoNumbersWithSumOf2020_MultipleThem(InputDir + "day1.txt"),
                 Day.One_2 => new FindThreeNumbersWithSumOf2020_MultipleThem(InputDir + "day1.txt"),
-                Day.Two_1 => new RangePasswordValidator(InputDir + "day2.txt"),
-                Day.Two_2 => new OnlyAllowOnePositionMatchPasswordValidator(InputDir + "day2.txt"),
+                Day.Two_1 => new PasswordValidator(InputDir + "day2.txt",(min, max, search, password) => {
+                    var occurences = password.Where(x => x == search).Count();
+                    return occurences >= min && occurences <= max;
+                }),
+                Day.Two_2 => new PasswordValidator(InputDir + "day2.txt", (firstPos, secondPos, search, password) => {
+                    if ((password[firstPos - 1] != search && password[secondPos - 1] != search) ||
+                        (password[firstPos - 1] == search && password[secondPos - 1] == search))
+                    {
+                        return false;
+                    }
+                    return true;
+                }),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

@@ -11,7 +11,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Four_1;
+            var day = Day.Four_2;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -49,7 +49,8 @@ namespace AdventOfCode2020
                     new SlopeData { Right = 7, Down = 1 },
                     new SlopeData { Right = 1, Down = 2 },
                 }),
-                Day.Four_1 => new PassportValidator(InputDir + "day4.txt"),
+                Day.Four_1 => new SimplePassportValidator(InputDir + "day4.txt"),
+                Day.Four_2 => new AdvancedPassportValidator(InputDir + "day4.txt"),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

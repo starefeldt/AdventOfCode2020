@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace AdventOfCode.Domain
 {
-    public class PassportValidator : IPuzzle
+    public class SimplePassportValidator : IPuzzle
     {
         private IEnumerable<string> _input;
 
-        public PassportValidator(string fileName)
+        public SimplePassportValidator(string fileName)
         {
             _input = InputHelper.ReadAllTextAndSplitOn(fileName, System.Environment.NewLine + System.Environment.NewLine);
         }

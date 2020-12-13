@@ -10,7 +10,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Two_1;
+            var day = Day.Three_1;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -34,6 +34,7 @@ namespace AdventOfCode2020
                     }
                     return true;
                 }),
+                Day.Three_1 => new TraverseMapAndFindTrees(InputDir + "day3.txt"),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

@@ -14,7 +14,7 @@ namespace AdventOfCode.Domain
                 .ReadAllLines(fileName);
         }
 
-        public int Solve()
+        public long Solve()
         {
             throw new InvalidOperationException("Could not solve puzzle");
         }

@@ -2,6 +2,6 @@
 {
     public interface IPuzzle
     {
-        int Solve();
+        long Solve();
     }
 }

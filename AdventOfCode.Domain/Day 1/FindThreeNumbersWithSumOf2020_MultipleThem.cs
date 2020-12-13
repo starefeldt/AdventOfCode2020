@@ -18,7 +18,7 @@ namespace AdventOfCode.Domain
                 .ToList();
         }
 
-        public int Solve()
+        public long Solve()
         {
             for (int i = 0; i < _numbers.Count; i++)
             {

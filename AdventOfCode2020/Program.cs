@@ -1,5 +1,6 @@
 ﻿using AdventOfCode.Domain;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode2020
@@ -10,7 +11,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Three_1;
+            var day = Day.Three_2;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -22,11 +23,13 @@ namespace AdventOfCode2020
             {
                 Day.One_1 => new FindTwoNumbersWithSumOf2020_MultipleThem(InputDir + "day1.txt"),
                 Day.One_2 => new FindThreeNumbersWithSumOf2020_MultipleThem(InputDir + "day1.txt"),
-                Day.Two_1 => new PasswordValidator(InputDir + "day2.txt",(min, max, search, password) => {
+                Day.Two_1 => new PasswordValidator(InputDir + "day2.txt", (min, max, search, password) =>
+                {
                     var occurences = password.Where(x => x == search).Count();
                     return occurences >= min && occurences <= max;
                 }),
-                Day.Two_2 => new PasswordValidator(InputDir + "day2.txt", (firstPos, secondPos, search, password) => {
+                Day.Two_2 => new PasswordValidator(InputDir + "day2.txt", (firstPos, secondPos, search, password) =>
+                {
                     if ((password[firstPos - 1] != search && password[secondPos - 1] != search) ||
                         (password[firstPos - 1] == search && password[secondPos - 1] == search))
                     {
@@ -34,7 +37,18 @@ namespace AdventOfCode2020
                     }
                     return true;
                 }),
-                Day.Three_1 => new TraverseMapAndFindTrees(InputDir + "day3.txt"),
+                Day.Three_1 => new TraverseMapAndFindTrees(InputDir + "day3.txt", new List<SlopeData> 
+                { 
+                    new SlopeData { Right = 3, Down = 1 } 
+                }),
+                Day.Three_2 => new TraverseMapAndFindTrees(InputDir + "day3.txt", new List<SlopeData>
+                {
+                    new SlopeData { Right = 1, Down = 1 },
+                    new SlopeData { Right = 3, Down = 1 },
+                    new SlopeData { Right = 5, Down = 1 },
+                    new SlopeData { Right = 7, Down = 1 },
+                    new SlopeData { Right = 1, Down = 2 },
+                }),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

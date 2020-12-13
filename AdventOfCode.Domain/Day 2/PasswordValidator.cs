@@ -15,7 +15,7 @@ namespace AdventOfCode.Domain
             _isPasswordValid = isPasswordValid;
         }
 
-        public int Solve()
+        public long Solve()
         {
             var valid = 0;
             foreach (var instruction in _input)

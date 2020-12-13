@@ -6,6 +6,7 @@
         One_2,
         Two_1,
         Two_2,
-        Three_1
+        Three_1,
+        Three_2
     }
 }

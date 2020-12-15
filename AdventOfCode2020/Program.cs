@@ -54,15 +54,16 @@ namespace AdventOfCode2020
                 Day.Five_1 => new AirlineBooking(InputDir + "day5.txt", seatIds => seatIds.Max()),
                 Day.Five_2 => new AirlineBooking(InputDir + "day5.txt", seatIds =>
                 {
-                    var ordered = seatIds.OrderBy(s => s).ToList();
-                    for (int i = 0; i < ordered.Count; i++)
+                    var mySeat = 0;
+                    seatIds.OrderBy(s => s).Aggregate((a, b) =>
                     {
-                        if((ordered[i] +1) != ordered[i+1])
+                        if (b - a != 1)
                         {
-                            return ordered[i] + 1;
+                            mySeat = a + 1;
                         }
-                    }
-                    throw new InvalidOperationException("Could not find my seat");
+                        return b;
+                    });
+                    return mySeat;
                 }),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),

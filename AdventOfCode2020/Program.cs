@@ -11,7 +11,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Five_1;
+            var day = Day.Five_2;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -51,7 +51,19 @@ namespace AdventOfCode2020
                 }),
                 Day.Four_1 => new SimplePassportValidator(InputDir + "day4.txt"),
                 Day.Four_2 => new AdvancedPassportValidator(InputDir + "day4.txt"),
-                Day.Five_1 => new AirlineBooking(InputDir + "day5.txt"),
+                Day.Five_1 => new AirlineBooking(InputDir + "day5.txt", seatIds => seatIds.Max()),
+                Day.Five_2 => new AirlineBooking(InputDir + "day5.txt", seatIds =>
+                {
+                    var ordered = seatIds.OrderBy(s => s).ToList();
+                    for (int i = 0; i < ordered.Count; i++)
+                    {
+                        if((ordered[i] +1) != ordered[i+1])
+                        {
+                            return ordered[i] + 1;
+                        }
+                    }
+                    throw new InvalidOperationException("Could not find my seat");
+                }),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

@@ -19,8 +19,7 @@ namespace AdventOfCode.Domain
             var yesAnswers = 0;
             foreach (var answers in _input)
             {
-                var distinctAnswers = answers.Replace(Environment.NewLine, "").ToHashSet();
-                yesAnswers += distinctAnswers.Count;
+                yesAnswers += answers.Replace(Environment.NewLine, "").ToHashSet().Count;
             }
             return yesAnswers;
         }

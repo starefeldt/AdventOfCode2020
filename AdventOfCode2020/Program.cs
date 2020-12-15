@@ -11,7 +11,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Six_1;
+            var day = Day.Six_2;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -66,6 +66,7 @@ namespace AdventOfCode2020
                     return mySeat;
                 }),
                 Day.Six_1 => new YesAnswerCounter(InputDir + "day6.txt"),
+                Day.Six_2 => new YesForAllAnswerCounter(InputDir + "day6.txt"),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

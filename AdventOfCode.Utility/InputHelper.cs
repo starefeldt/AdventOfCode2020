@@ -5,12 +5,9 @@ namespace AdventOfCode.Utility
 {
     public static class InputHelper
     {
-        public static IEnumerable<string> ReadAllLines(string path) => File.ReadAllLines(path);
-        public static IEnumerable<string> ReadAllTextAndSplitOn(string path, string seperator)
-        {
-
-            var text = File.ReadAllText(path);
-            return text.Split(seperator);
-        }
+        public static IEnumerable<string> ReadAllLines(string path) => 
+            File.ReadAllLines(path);
+        public static IEnumerable<string> ReadAllTextAndSplitOn(string path, string seperator) => 
+            File.ReadAllText(path).Split(seperator);
     }
 }

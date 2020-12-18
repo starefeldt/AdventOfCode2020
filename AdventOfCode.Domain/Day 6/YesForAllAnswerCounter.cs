@@ -20,10 +20,10 @@ namespace AdventOfCode.Domain
             foreach (var answers in _input)
             {
                 var individualsInGroup = answers.Split(Environment.NewLine);
-                var firstIndividual = individualsInGroup.First().ToList();
+                var firstIndividual = individualsInGroup.First().ToList();  //We can compare all answers to the first since it's all or nothing
                 for (int i = 1; i < individualsInGroup.Length; i++)
                 {
-                    firstIndividual = firstIndividual.Intersect(individualsInGroup[i]).ToList();
+                    firstIndividual = firstIndividual.Intersect(individualsInGroup[i]).ToList();    //keep those that match
                 }
                 yesAnswers += firstIndividual.Count;
             }

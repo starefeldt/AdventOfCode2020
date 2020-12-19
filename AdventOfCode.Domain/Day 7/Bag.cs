@@ -6,23 +6,24 @@ namespace AdventOfCode.Domain.Day_7
 {
     public class Bag
     {
-        public string Name { get; }
-        public List<Bag> Content { get; } = new List<Bag>();
+        private readonly string _name;
+        private readonly List<Bag> _content;
 
         public Bag(string name)
         {
-            Name = name;
+            _name = name;
+            _content = new List<Bag>();
         }
 
         public void AddContent(Bag bag)
         {
-            Content.Add(bag);
+            _content.Add(bag);
         }
 
         public bool ContainsAnotherBag(string name)
         {
-            var distinct = Content.Distinct();
-            if (distinct.SingleOrDefault(b => b.Name == name) != null)
+            var distinct = _content.Distinct();
+            if (distinct.SingleOrDefault(b => b._name == name) != null)
             {
                 return true;
             }
@@ -38,8 +39,8 @@ namespace AdventOfCode.Domain.Day_7
 
         public void GetContentCount(ref int contentCount)
         {
-            contentCount += Content.Count;
-            foreach (var bag in Content)
+            contentCount += _content.Count;
+            foreach (var bag in _content)
             {
                 bag.GetContentCount(ref contentCount);
             }

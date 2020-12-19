@@ -7,26 +7,26 @@ namespace AdventOfCode.Domain.Day_7
     public class Bag
     {
         public string Name { get; }
-        private readonly List<Bag> _content;
+        public List<Bag> Content { get; } = new List<Bag>();
 
         public Bag(string name)
         {
             Name = name;
-            _content = new List<Bag>();
         }
 
         public void AddContent(Bag bag)
         {
-            _content.Add(bag);
+            Content.Add(bag);
         }
 
         public bool ContainsAnotherBag(string name)
         {
-            if (_content.SingleOrDefault(b => b.Name == name) != null)
+            var distinct = Content.Distinct();
+            if (distinct.SingleOrDefault(b => b.Name == name) != null)
             {
                 return true;
             }
-            foreach (var bag in _content)
+            foreach (var bag in distinct)
             {
                 if (bag.ContainsAnotherBag(name))
                 {
@@ -34,6 +34,15 @@ namespace AdventOfCode.Domain.Day_7
                 }
             }
             return false;
+        }
+
+        public void GetContentCount(ref int contentCount)
+        {
+            contentCount += Content.Count;
+            foreach (var bag in Content)
+            {
+                bag.GetContentCount(ref contentCount);
+            }
         }
     }
 }

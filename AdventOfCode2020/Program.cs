@@ -11,7 +11,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Seven_1;
+            var day = Day.Seven_2;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -67,7 +67,25 @@ namespace AdventOfCode2020
                 }),
                 Day.Six_1 => new YesAnswerCounter(InputDir + "day6.txt"),
                 Day.Six_2 => new YesForAllAnswerCounter(InputDir + "day6.txt"),
-                Day.Seven_1 => new FindShinyBag(InputDir + "day7.txt"),
+                Day.Seven_1 => new FindShinyBag(InputDir + "day7.txt", (bags) =>
+                {
+                    var containsShinyGold = 0;
+                    foreach (var bag in bags)
+                    {
+                        if (bag.Value.ContainsAnotherBag("shinygold"))
+                        {
+                            containsShinyGold++;
+                        }
+                    }
+                    return containsShinyGold;
+                }),
+                Day.Seven_2 => new FindShinyBag(InputDir + "day7.txt", (bags) =>
+                {
+                    var shinyGoldBag = bags["shinygold"];
+                    var contentCount = 0;
+                    shinyGoldBag.GetContentCount(ref contentCount);
+                    return contentCount;
+                }),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

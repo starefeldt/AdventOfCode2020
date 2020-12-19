@@ -1,5 +1,6 @@
 ﻿using AdventOfCode.Domain.Day_7;
 using AdventOfCode.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,12 +8,15 @@ namespace AdventOfCode.Domain
 {
     public class FindShinyBag : IPuzzle
     {
+        private readonly Func<Dictionary<string, Bag>, int> _getResultFromBags;
         private IEnumerable<string> _input;
-        private Dictionary<string, Bag> _bags = new Dictionary<string, Bag>();
+        private readonly Dictionary<string, Bag> _bags;
 
-        public FindShinyBag(string fileName)
+        public FindShinyBag(string fileName, Func<Dictionary<string, Bag>, int> getResultFromBags)
         {
             _input = InputHelper.ReadAllLines(fileName);
+            _getResultFromBags = getResultFromBags;
+            _bags = new Dictionary<string, Bag>();
         }
 
         public long Solve()
@@ -29,16 +33,7 @@ namespace AdventOfCode.Domain
                 }
                 AddBagContent(bag, description);
             }
-
-            var containsShinyGold = 0;
-            foreach (var bag in _bags)
-            {
-                if (bag.Value.ContainsAnotherBag("shinygold"))
-                {
-                    containsShinyGold++;
-                }
-            }
-            return containsShinyGold;
+            return _getResultFromBags(_bags);
         }
 
         private void AddBagContent(Bag bag, string description)
@@ -49,7 +44,11 @@ namespace AdventOfCode.Domain
                 .Substring(contentStartIndex + delimiter.Length)
                 .Replace("bags", "").Replace("bag", "").Replace(".", "")
                 .Split(',')
-                .Select(c => new { BagName = c.Substring(1) });
+                .Select(c => new
+                {
+                    BagAmount = int.TryParse(c[0].ToString(), out int amount) == true ? amount : 0,
+                    BagName = c.Substring(1)
+                });
 
             foreach (var item in content)
             {
@@ -58,7 +57,10 @@ namespace AdventOfCode.Domain
                     b = new Bag(item.BagName);
                     _bags.Add(item.BagName, b);
                 }
-                bag.AddContent(b);
+                for (int i = 0; i < item.BagAmount; i++)
+                {
+                    bag.AddContent(b);
+                }
             }
         }
     }

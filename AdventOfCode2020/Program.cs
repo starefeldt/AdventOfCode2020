@@ -87,6 +87,7 @@ namespace AdventOfCode2020
                     return contentCount;
                 }),
                 Day.Eight_1 => new FindFirstRepeatedJump(InputDir + "day8.txt"),
+                Day.Eight_2 => new FindFaultedInstruction(InputDir + "day8.txt"),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

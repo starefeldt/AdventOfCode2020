@@ -1,11 +1,11 @@
-﻿using AdventOfCode.Utility;
+﻿using AdventOfCode.Domain.Day_8;
+using AdventOfCode.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Domain
 {
-    public enum Operation { nop, acc, jmp }
     public class FindFirstRepeatedJump : IPuzzle
     {
         private List<IEnumerable<string>> _input;

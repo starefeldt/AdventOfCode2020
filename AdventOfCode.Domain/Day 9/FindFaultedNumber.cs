@@ -1,25 +1,30 @@
-﻿using AdventOfCode.Utility;
+﻿using AdventOfCode.Domain.Day_9;
+using AdventOfCode.Utility;
 using System;
 using System.Linq;
 
 namespace AdventOfCode.Domain
 {
-    public class SumRangeOfNumbers : IPuzzle
+    public class FindFaultedNumber : IPuzzle
     {
         private long[] _input;
+        private readonly IFaultedNumberAlgorithm _algorithm;
+        private readonly int _preambleLength;
 
-        public SumRangeOfNumbers(string fileName)
+        public FindFaultedNumber(string fileName, IFaultedNumberAlgorithm algorithm, int preambleLength)
         {
             _input = InputHelper
                 .ReadAllLines(fileName)
                 .Select(n => long.Parse(n))
                 .ToArray();
+            _algorithm = algorithm;
+            _preambleLength = preambleLength;
         }
 
         public long Solve()
         {
             var a = 0;
-            var b = 25;
+            var b = _preambleLength;
             var preamble = _input[a..b];
 
             for (int i = b; i < _input.Length; i++)
@@ -27,9 +32,9 @@ namespace AdventOfCode.Domain
                 var value = _input[i];
                 if (!CanValueBeSummedInPreamble(preamble, value))
                 {
-                    return value;
+                    return _algorithm.Calculate(_input, value);
                 }
-                preamble = _input[(a += 1)..(b += 1)];
+                preamble = _input[(++a)..(++b)];
             }
             throw new InvalidOperationException("Could not solve");
         }

@@ -11,7 +11,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Seven_1;
+            var day = Day.Eight_1;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -86,6 +86,7 @@ namespace AdventOfCode2020
                     shinyGoldBag.GetContentCount(ref contentCount);
                     return contentCount;
                 }),
+                Day.Eight_1 => new FindFirstRepeatedJump(InputDir + "day8.txt"),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

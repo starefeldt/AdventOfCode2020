@@ -11,7 +11,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Eight_1;
+            var day = Day.Nine_1;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -88,6 +88,7 @@ namespace AdventOfCode2020
                 }),
                 Day.Eight_1 => new FindFirstRepeatedJump(InputDir + "day8.txt"),
                 Day.Eight_2 => new FindFaultedInstruction(InputDir + "day8.txt"),
+                Day.Nine_1 => new SumRangeOfNumbers(InputDir + "day9.txt"),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

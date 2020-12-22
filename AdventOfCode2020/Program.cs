@@ -12,7 +12,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Ten_1;
+            var day = Day.Ten_2;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -92,6 +92,7 @@ namespace AdventOfCode2020
                 Day.Nine_1 => new FindFaultedNumber(InputDir + "day9.txt", new SimpleReturn(), 25),
                 Day.Nine_2 => new FindFaultedNumber(InputDir + "day9.txt", new FindSumOfFaultedInPreamble(25), 25),
                 Day.Ten_1 => new FindJoltageDifferenceInAdapters(InputDir + "day10.txt"),
+                Day.Ten_2 => new FindAllWorkingCombinationsInAdapters(InputDir + "day10.txt"),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

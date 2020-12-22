@@ -37,7 +37,6 @@ namespace AdventOfCode.Domain
                 }
                 currentJoltage = joltage;
             }
-
             return occurences[1] * occurences[3];
         }
     }

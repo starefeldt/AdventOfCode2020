@@ -9,13 +9,17 @@ namespace AdventOfCode.Domain
     {
         private List<string> _input;
         private List<List<Cell>> _grid;
+        private readonly int _maxAllowedOccupied;
+        private readonly IOccupiedAlgorithm _algorithm;
 
-        public AirplaneSeater(string fileName)
+        public AirplaneSeater(string fileName, int maxAllowedOccupied, IOccupiedAlgorithm algorithm)
         {
             _input = InputHelper
                 .ReadAllLines(fileName)
                 .ToList();
             _grid = CreateGridFromInput();
+            _maxAllowedOccupied = maxAllowedOccupied;
+            _algorithm = algorithm;
         }
 
         public long Solve()
@@ -49,7 +53,7 @@ namespace AdventOfCode.Domain
 
         private bool TrySetStatusFor(Cell cell)
         {
-            var occupied = GetOccupiedCount(cell);
+            var occupied = _algorithm.GetOccupiedCount(cell, _grid);
 
             if (cell.Status == CellStatus.Empty)
             {
@@ -61,36 +65,13 @@ namespace AdventOfCode.Domain
             }
             else if (cell.Status == CellStatus.Occupied)
             {
-                if(occupied >= 4)
+                if(occupied >= _maxAllowedOccupied)
                 {
                     cell.SetCellStatus(CellStatus.Empty);
                     return true;
                 }
             }
             return false;
-        }
-
-        private int GetOccupiedCount(Cell cell)
-        {
-            var startRow = cell.Row == 0 ? cell.Row : cell.Row - 1;
-            var stopRow = cell.Row == _grid.Count - 1 ? cell.Row : cell.Row + 1;
-            var startColumn = cell.Column == 0 ? cell.Column : cell.Column - 1;
-            var stopColumn = cell.Column == _grid[0].Count - 1 ? cell.Column : cell.Column + 1;
-            var occupiedCount = 0;
-
-            for (int gridRow = startRow; gridRow <= stopRow; gridRow++)
-            {
-                for (int gridColumn = startColumn; gridColumn <= stopColumn; gridColumn++)
-                {
-                    var gridCell = _grid[gridRow][gridColumn];
-                    if (!gridCell.Equals(cell) &&
-                        gridCell.Status == CellStatus.Occupied)
-                    {
-                        occupiedCount++;
-                    }
-                }
-            }
-            return occupiedCount;
         }
 
         private List<List<Cell>> CreateGridFromInput()

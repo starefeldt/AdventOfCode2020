@@ -74,25 +74,19 @@ namespace AdventOfCode.Domain.Day_12
         private (Direction Direction, int Unit) GetNewDirection(int oldValue, int value)
         {
             if (value > 0)
-            {
                 while (value >= 360)
                     value -= 360;
-            }
             else
-            {
                 while (value < 0)
                     value += 360;
-            }
+
             var newDirection = (Direction)value;
             var signedValue = Math.Abs(oldValue);
-            return newDirection switch
+            if (newDirection == Direction.South || newDirection == Direction.West)
             {
-                Direction.North => (Direction.North, signedValue),
-                Direction.East => (Direction.East, signedValue),
-                Direction.South => (Direction.South, signedValue * -1),
-                Direction.West => (Direction.West, signedValue * -1),
-                _ => throw new InvalidOperationException("Incorrect"),
-            };
+                return (newDirection, signedValue * -1);    //return negetive value to indicate south and west
+            }
+            return (newDirection, signedValue);
         }
 
         private void SetWayPoint((Direction Direction, int Unit) data)

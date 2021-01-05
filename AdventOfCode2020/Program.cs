@@ -14,7 +14,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Twelve_2;
+            var day = Day.Thirteen_1;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -101,6 +101,7 @@ namespace AdventOfCode2020
                     new DefaultShip(Direction.East, new Point())),
                 Day.Twelve_2 => new ShipNavigationPuzzle(InputDir + "day12.txt", 
                     new WaypointShip(new Point { NorthSouth = 1, EastWest = 10 }, new Point())),
+                Day.Thirteen_1 => new BusStopPuzzle(InputDir + "day13.txt"),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };

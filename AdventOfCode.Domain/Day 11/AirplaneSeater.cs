@@ -9,16 +9,16 @@ namespace AdventOfCode.Domain
     {
         private List<string> _input;
         private List<List<Cell>> _grid;
-        private readonly int _maxAllowedOccupied;
+        private readonly int _allowedOccupied;
         private readonly IOccupiedAlgorithm _algorithm;
 
-        public AirplaneSeater(string fileName, int maxAllowedOccupied, IOccupiedAlgorithm algorithm)
+        public AirplaneSeater(string fileName, int allowedOccupied, IOccupiedAlgorithm algorithm)
         {
             _input = InputHelper
                 .ReadAllLines(fileName)
                 .ToList();
             _grid = CreateGridFromInput();
-            _maxAllowedOccupied = maxAllowedOccupied;
+            _allowedOccupied = allowedOccupied;
             _algorithm = algorithm;
         }
 
@@ -65,7 +65,7 @@ namespace AdventOfCode.Domain
             }
             else if (cell.Status == CellStatus.Occupied)
             {
-                if(occupied >= _maxAllowedOccupied)
+                if(occupied >= _allowedOccupied)
                 {
                     cell.SetCellStatus(CellStatus.Empty);
                     return true;

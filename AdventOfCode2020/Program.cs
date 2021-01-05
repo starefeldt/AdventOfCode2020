@@ -1,5 +1,6 @@
 ﻿using AdventOfCode.Domain;
 using AdventOfCode.Domain.Day_11;
+using AdventOfCode.Domain.Day_12;
 using AdventOfCode.Domain.Day_9;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace AdventOfCode2020
 
         static void Main(string[] args)
         {
-            var day = Day.Eleven_2;
+            var day = Day.Twelve_2;
             var puzzle = GetPuzzle(day);
             var result = puzzle.Solve();
             Console.WriteLine($"The answer to {nameof(Day)}:{day} is {result}");
@@ -96,6 +97,10 @@ namespace AdventOfCode2020
                 Day.Ten_2 => new FindAllWorkingCombinationsInAdapters(InputDir + "day10.txt"),
                 Day.Eleven_1 => new AirplaneSeater(InputDir + "day11.txt", 4, new AdjacentOccupiedAlgorithm()),
                 Day.Eleven_2 => new AirplaneSeater(InputDir + "day11.txt", 5, new DistanceOccupiedAlgorithm()),
+                Day.Twelve_1 => new ShipNavigationPuzzle(InputDir + "day12.txt", 
+                    new DefaultShip(Direction.East, new Point())),
+                Day.Twelve_2 => new ShipNavigationPuzzle(InputDir + "day12.txt", 
+                    new WaypointShip(new Point { NorthSouth = 1, EastWest = 10 }, new Point())),
 
                 _ => throw new ArgumentException($"Could not return implementation for {nameof(IPuzzle)} with value: {day}"),
             };
